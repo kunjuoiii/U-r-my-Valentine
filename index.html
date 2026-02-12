@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Forever ❤️</title>
+<title>Our Love Story ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
 
@@ -16,7 +16,56 @@ overflow:hidden;
 background:black;
 }
 
-/* Cinematic Background */
+/* ===== MOVIE INTRO ===== */
+.intro{
+position:absolute;
+inset:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:999;
+transition:opacity 2s ease;
+}
+
+.intro-text{
+color:white;
+text-align:center;
+animation:zoomIn 8s ease forwards;
+}
+
+.line{
+opacity:0;
+font-size:22px;
+margin:12px 0;
+letter-spacing:1px;
+animation:fadeLine 2s forwards;
+}
+
+.line:nth-child(1){animation-delay:1s;}
+.line:nth-child(2){animation-delay:3.5s;}
+
+.title{
+opacity:0;
+font-size:45px;
+margin-top:30px;
+color:#ff4e8b;
+text-shadow:0 0 30px #ff4e8b;
+animation:fadeLine 2s forwards;
+animation-delay:6s;
+}
+
+@keyframes fadeLine{
+to{opacity:1;}
+}
+
+@keyframes zoomIn{
+from{transform:scale(1.2);}
+to{transform:scale(1);}
+}
+
+/* ===== BACKGROUND ===== */
 body{
 background:url("background.jpg") center/cover no-repeat;
 display:flex;
@@ -25,16 +74,15 @@ align-items:center;
 position:relative;
 }
 
-/* Dark overlay */
 body::after{
 content:"";
 position:absolute;
 inset:0;
-background:radial-gradient(circle at center, rgba(0,0,0,0.4), rgba(0,0,0,0.9));
+background:radial-gradient(circle at center, rgba(0,0,0,0.3), rgba(0,0,0,0.9));
 z-index:0;
 }
 
-/* Sparkle Particles */
+/* Sparkles */
 .sparkle{
 position:absolute;
 width:4px;
@@ -42,7 +90,7 @@ height:4px;
 background:white;
 border-radius:50%;
 opacity:0.8;
-animation: twinkle 2s infinite alternate;
+animation:twinkle 2s infinite alternate;
 z-index:0;
 }
 
@@ -51,7 +99,7 @@ from{opacity:0.2;transform:scale(0.5);}
 to{opacity:1;transform:scale(1.5);}
 }
 
-/* Book */
+/* ===== BOOK ===== */
 .book{
 width:340px;
 height:450px;
@@ -112,7 +160,7 @@ box-shadow:0 0 15px #ff4e8b;
 .next{right:20px;}
 .prev{left:20px;}
 
-/* Final Proposal Screen */
+/* ===== FINAL PROPOSAL ===== */
 .final{
 position:absolute;
 inset:0;
@@ -137,10 +185,10 @@ pointer-events:auto;
 font-size:32px;
 text-align:center;
 margin-bottom:30px;
-animation:fadeIn 2s forwards;
+animation:fadeUp 2s forwards;
 }
 
-@keyframes fadeIn{
+@keyframes fadeUp{
 from{opacity:0;transform:translateY(30px);}
 to{opacity:1;transform:translateY(0);}
 }
@@ -150,21 +198,14 @@ display:flex;
 gap:20px;
 }
 
-.yes{
-background:#00c853;
-}
-
-.no{
-background:#d50000;
-position:relative;
-}
+.yes{background:#00c853;}
+.no{background:#d50000;position:relative;}
 
 /* Confetti */
 .confetti{
 position:absolute;
 width:10px;
 height:10px;
-background:red;
 top:-10px;
 animation:fall 3s linear forwards;
 }
@@ -177,12 +218,22 @@ to{transform:translateY(100vh) rotate(720deg);}
 
 <body>
 
+<!-- 🎬 INTRO -->
+<div class="intro" id="intro">
+<div class="intro-text">
+<p class="line">In a world full of people...</p>
+<p class="line">I found someone extraordinary.</p>
+<h1 class="title">Our Love Story ❤️</h1>
+</div>
+</div>
+
+<!-- Music -->
 <audio autoplay loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Sparkles Script -->
 <script>
-/* Sparkles */
 for(let i=0;i<60;i++){
 let s=document.createElement("div");
 s.className="sparkle";
@@ -233,6 +284,14 @@ document.body.appendChild(s);
 </div>
 
 <script>
+/* Hide intro after 9s */
+setTimeout(()=>{
+document.getElementById("intro").style.opacity="0";
+setTimeout(()=>{
+document.getElementById("intro").style.display="none";
+},2000);
+},9000);
+
 function flip(n){
 document.getElementById("p"+n).classList.add("flipped");
 }
@@ -252,7 +311,7 @@ noBtn.style.left=Math.random()*80+"vw";
 noBtn.style.top=Math.random()*80+"vh";
 });
 
-/* Confetti celebration */
+/* Confetti */
 function celebrate(){
 for(let i=0;i<150;i++){
 let c=document.createElement("div");
