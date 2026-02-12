@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine's Day ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff4e8b, #ff9a9e);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        color: white;
+        text-align: center;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        width: 350px;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        background: white;
+        color: #ff4e8b;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #ffe6ec;
+        transform: scale(1.05);
+    }
+
+    .hidden-message {
+        display: none;
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: absolute;
+        bottom: -10px;
+        color: white;
+        animation: float 6s infinite;
+        font-size: 20px;
+        opacity: 0.7;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0.7;
+        }
+        100% {
+            transform: translateY(-100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Happy Valentine's Day ❤️</h1>
+    <p>
+        To the most beautiful girl in my life,<br>
+        Every moment with you feels magical.<br>
+        You are my today, my tomorrow,<br>
+        and my forever 💖
+    </p>
+
+    <button onclick="showMessage()">Open My Heart 💌</button>
+
+    <div class="hidden-message" id="loveMessage">
+        I love you more than words can ever express ❤️
+    </div>
+</div>
+
+<!-- Floating Hearts Script -->
+<script>
+    function showMessage() {
+        document.getElementById("loveMessage").style.display = "block";
+    }
+
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+
+    setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>
