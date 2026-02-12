@@ -12,6 +12,7 @@ html, body {
     margin: 0;
     height: 100%;
     font-family: 'Poppins', sans-serif;
+    overflow: hidden;
 }
 
 body {
@@ -19,7 +20,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
     position: relative;
 }
 
@@ -28,77 +28,88 @@ body::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.45);
     z-index: 0;
 }
 
-/* Book container */
-.book {
-    width: 320px;
-    height: 420px;
-    position: relative;
-    perspective: 2000px;
-    z-index: 1;
+/* Floating hearts */
+.heart {
+    position: absolute;
+    color: #ff4e8b;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+    z-index: 0;
 }
 
-/* Transparent Glass Pages */
+@keyframes float {
+    from { transform: translateY(100vh) scale(0.5); opacity: 1; }
+    to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+
+/* Book */
+.book {
+    width: 330px;
+    height: 440px;
+    position: relative;
+    perspective: 2500px;
+    z-index: 2;
+}
+
 .page {
     width: 100%;
     height: 100%;
     position: absolute;
-    left: 0;
-    top: 0;
-
-    background: rgba(255, 255, 255, 0.08); /* lighter glass */
-
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
-
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(25px);
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,0.3);
-
-    box-shadow: 
-        0 8px 32px rgba(0,0,0,0.6),
-        inset 0 0 20px rgba(255,255,255,0.1);
-
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
     transform-origin: left;
-    transition: transform 1s ease;
+    transition: transform 1s ease, box-shadow 1s ease;
     padding: 30px;
     box-sizing: border-box;
     color: white;
-
     backface-visibility: hidden;
-    transform-style: preserve-3d;
 }
 
-
-/* Page stacking order */
-.page:nth-child(1) { z-index: 4; }
-.page:nth-child(2) { z-index: 3; }
-.page:nth-child(3) { z-index: 2; }
-.page:nth-child(4) { z-index: 1; }
-
-.page h2 {
-    color: #ffd1dc;
-    margin-top: 0;
-}
-
-.page p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: white;
+.page::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+    opacity: 0;
+    transition: opacity 1s;
 }
 
 .page.flipped {
     transform: rotateY(-180deg);
 }
 
+.page.flipped::after {
+    opacity: 1;
+}
+
+.page:nth-child(1){ z-index:4; }
+.page:nth-child(2){ z-index:3; }
+.page:nth-child(3){ z-index:2; }
+.page:nth-child(4){ z-index:1; }
+
+h2 {
+    color: #ffd1dc;
+    text-shadow: 0 0 10px #ff4e8b;
+}
+
+p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
 /* Buttons */
 button {
     position: absolute;
     bottom: 20px;
-    right: 20px;
-    padding: 8px 15px;
+    padding: 8px 18px;
     border: none;
     border-radius: 20px;
     background: #ff4e8b;
@@ -110,60 +121,111 @@ button {
 
 button:hover {
     background: #ff2f75;
+    box-shadow: 0 0 10px #ff4e8b;
+}
+
+.next { right: 20px; }
+.prev { left: 20px; }
+
+/* Final screen animation */
+.final-screen {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    font-size: 28px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s;
+    z-index: 5;
+}
+
+.final-screen.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.final-screen span {
+    font-size: 60px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 </style>
 </head>
 
 <body>
 
+<!-- Background Music -->
+<audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Floating Hearts -->
+<script>
+for(let i=0;i<20;i++){
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=4+Math.random()*4+"s";
+    document.body.appendChild(heart);
+}
+</script>
+
 <div class="book">
 
-    <div class="page" id="p1">
-        <h2>Page 1 ❤️</h2>
-        <p>
-            Since the day I met you,<br>
-            my life has felt happier.<br><br>
-            You are the most special<br>
-            person in my world.
-        </p>
-        <button onclick="flip('p1')">Next ➜</button>
-    </div>
+<div class="page" id="p1">
+<h2>Page 1 ❤️</h2>
+<p>Since the day I met you,<br>my life changed beautifully.</p>
+<button class="next" onclick="flipNext(1)">Next ➜</button>
+</div>
 
-    <div class="page" id="p2">
-        <h2>Page 2 💕</h2>
-        <p>
-            Talking to you<br>
-            is my favorite part of the day.<br><br>
-            When you are near me,<br>
-            everything feels better.
-        </p>
-        <button onclick="flip('p2')">Next ➜</button>
-    </div>
+<div class="page" id="p2">
+<h2>Page 2 💕</h2>
+<p>Talking to you is my favorite moment every day.</p>
+<button class="prev" onclick="flipPrev(1)">⬅ Back</button>
+<button class="next" onclick="flipNext(2)">Next ➜</button>
+</div>
 
-    <div class="page" id="p3">
-        <h2>Page 3 💌</h2>
-        <p>
-            I love you so much ❤️<br><br>
-            I just want to stay with you,<br>
-            today and always.
-        </p>
-        <button onclick="flip('p3')">Next ➜</button>
-    </div>
+<div class="page" id="p3">
+<h2>Page 3 💌</h2>
+<p>I love you more than words can explain ❤️</p>
+<button class="prev" onclick="flipPrev(2)">⬅ Back</button>
+<button class="next" onclick="showFinal()">Next ➜</button>
+</div>
 
-    <div class="page" id="p4">
-        <h2>Forever 💖</h2>
-        <p>
-            Happy Valentine's Day ❤️<br><br>
-            Will you always<br>
-            be mine?
-        </p>
-    </div>
+<div class="page" id="p4">
+<h2>Forever 💖</h2>
+<p>You are my today and all my tomorrows.</p>
+<button class="prev" onclick="flipPrev(3)">⬅ Back</button>
+</div>
 
 </div>
 
+<div class="final-screen" id="final">
+<span>💍</span>
+Will You Be Mine Forever?
+</div>
+
 <script>
-function flip(pageId) {
-    document.getElementById(pageId).classList.add("flipped");
+function flipNext(n){
+    document.getElementById("p"+n).classList.add("flipped");
+}
+function flipPrev(n){
+    document.getElementById("p"+n).classList.remove("flipped");
+}
+function showFinal(){
+    document.getElementById("p3").classList.add("flipped");
+    document.getElementById("final").classList.add("show");
 }
 </script>
 
