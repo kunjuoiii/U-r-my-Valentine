@@ -345,41 +345,5 @@ function celebrate(){
 
 </script>
 
-
-
-
-function flip(n){
-document.getElementById("p"+n).classList.add("flipped");
-}
-function unflip(n){
-document.getElementById("p"+n).classList.remove("flipped");
-}
-function showFinal(){
-document.getElementById("p3").classList.add("flipped");
-document.getElementById("final").classList.add("show");
-}
-
-/* NO button runs away */
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",()=>{
-noBtn.style.position="absolute";
-noBtn.style.left=Math.random()*80+"vw";
-noBtn.style.top=Math.random()*80+"vh";
-});
-
-/* Confetti */
-function celebrate(){
-for(let i=0;i<150;i++){
-let c=document.createElement("div");
-c.className="confetti";
-c.style.left=Math.random()*100+"vw";
-c.style.background="hsl("+Math.random()*360+",100%,50%)";
-c.style.animationDuration=2+Math.random()*2+"s";
-document.body.appendChild(c);
-}
-alert("She said YES! ❤️ Forever starts now!");
-}
-</script>
-
 </body>
 </html>
