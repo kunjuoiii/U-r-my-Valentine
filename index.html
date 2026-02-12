@@ -285,6 +285,7 @@ document.body.appendChild(s);
 
 <script>
 
+/* ===== INTRO FADE ===== */
 window.onload = function() {
 
     setTimeout(function(){
@@ -300,7 +301,7 @@ window.onload = function() {
 };
 
 
-/* Page Flip */
+/* ===== PAGE FLIP ===== */
 function flip(n){
     document.getElementById("p"+n).classList.add("flipped");
 }
@@ -315,17 +316,21 @@ function showFinal(){
 }
 
 
-/* NO button runs away */
-const noBtn = document.getElementById("noBtn");
+/* ===== NO BUTTON RUNS ===== */
+window.addEventListener("DOMContentLoaded", function(){
 
-noBtn.addEventListener("mouseover",()=>{
-    noBtn.style.position="absolute";
-    noBtn.style.left=Math.random()*80+"vw";
-    noBtn.style.top=Math.random()*80+"vh";
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseover", function(){
+        noBtn.style.position = "absolute";
+        noBtn.style.left = Math.random()*80 + "vw";
+        noBtn.style.top = Math.random()*80 + "vh";
+    });
+
 });
 
 
-/* Confetti */
+/* ===== CONFETTI ===== */
 function celebrate(){
     for(let i=0;i<150;i++){
         let c=document.createElement("div");
@@ -339,6 +344,7 @@ function celebrate(){
 }
 
 </script>
+
 
 
 
