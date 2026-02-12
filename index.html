@@ -29,6 +29,7 @@ body::after {
     position: absolute;
     inset: 0;
     background: rgba(0,0,0,0.55);
+    z-index: 0;
 }
 
 /* Book container */
@@ -40,37 +41,42 @@ body::after {
     z-index: 1;
 }
 
-/* Pages */
+/* Transparent Glass Pages */
 .page {
     width: 100%;
     height: 100%;
-    background: white;
     position: absolute;
     left: 0;
     top: 0;
-    border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     transform-origin: left;
     transition: transform 1s ease;
     padding: 30px;
     box-sizing: border-box;
+    color: white;
 }
 
-/* Page stacking */
+/* Page stacking order */
 .page:nth-child(1) { z-index: 4; }
 .page:nth-child(2) { z-index: 3; }
 .page:nth-child(3) { z-index: 2; }
 .page:nth-child(4) { z-index: 1; }
 
 .page h2 {
-    color: #ff4e8b;
+    color: #ffd1dc;
     margin-top: 0;
 }
 
 .page p {
     font-size: 14px;
     line-height: 1.6;
-    color: #333;
+    color: white;
 }
 
 .page.flipped {
@@ -89,6 +95,11 @@ button {
     color: white;
     cursor: pointer;
     font-size: 12px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff2f75;
 }
 </style>
 </head>
@@ -100,10 +111,10 @@ button {
     <div class="page" id="p1">
         <h2>Page 1 ❤️</h2>
         <p>
-            The day I met you,<br>
-            my world changed forever.<br><br>
-            You became my smile,<br>
-            my peace, my happiness.
+            Since the day I met you,<br>
+            my life has felt happier.<br><br>
+            You are the most special<br>
+            person in my world.
         </p>
         <button onclick="flip('p1')">Next ➜</button>
     </div>
@@ -111,10 +122,10 @@ button {
     <div class="page" id="p2">
         <h2>Page 2 💕</h2>
         <p>
-            Every moment with you<br>
-            feels magical and warm.<br><br>
-            Your love is my favorite place<br>
-            in this entire world.
+            Talking to you<br>
+            is my favorite part of the day.<br><br>
+            When you are near me,<br>
+            everything feels better.
         </p>
         <button onclick="flip('p2')">Next ➜</button>
     </div>
@@ -122,20 +133,19 @@ button {
     <div class="page" id="p3">
         <h2>Page 3 💌</h2>
         <p>
-            I promise to stand by you,<br>
-            support you,<br>
-            and love you endlessly.<br><br>
-            You are my forever ❤️
+            I love you so much ❤️<br><br>
+            I just want to stay with you,<br>
+            today and always.
         </p>
         <button onclick="flip('p3')">Next ➜</button>
     </div>
 
     <div class="page" id="p4">
-        <h2>Final Page 💖</h2>
+        <h2>Forever 💖</h2>
         <p>
             Happy Valentine's Day ❤️<br><br>
-            Will you stay with me<br>
-            forever?
+            Will you always<br>
+            be mine?
         </p>
     </div>
 
