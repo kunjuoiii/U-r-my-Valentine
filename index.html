@@ -3,229 +3,266 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Love Story ❤️</title>
+<title>Our Forever ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
 
 <style>
-html, body {
-    margin: 0;
-    height: 100%;
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
+html,body{
+margin:0;
+height:100%;
+font-family:'Poppins',sans-serif;
+overflow:hidden;
+background:black;
 }
 
-body {
-    background: url("background.jpg") center/cover no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+/* Cinematic Background */
+body{
+background:url("background.jpg") center/cover no-repeat;
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
 }
 
 /* Dark overlay */
-body::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 0;
+body::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at center, rgba(0,0,0,0.4), rgba(0,0,0,0.9));
+z-index:0;
 }
 
-/* Floating hearts */
-.heart {
-    position: absolute;
-    color: #ff4e8b;
-    font-size: 20px;
-    animation: float 6s linear infinite;
-    z-index: 0;
+/* Sparkle Particles */
+.sparkle{
+position:absolute;
+width:4px;
+height:4px;
+background:white;
+border-radius:50%;
+opacity:0.8;
+animation: twinkle 2s infinite alternate;
+z-index:0;
 }
 
-@keyframes float {
-    from { transform: translateY(100vh) scale(0.5); opacity: 1; }
-    to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+@keyframes twinkle{
+from{opacity:0.2;transform:scale(0.5);}
+to{opacity:1;transform:scale(1.5);}
 }
 
 /* Book */
-.book {
-    width: 330px;
-    height: 440px;
-    position: relative;
-    perspective: 2500px;
-    z-index: 2;
+.book{
+width:340px;
+height:450px;
+position:relative;
+perspective:3000px;
+z-index:2;
 }
 
-.page {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(25px);
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.3);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
-    transform-origin: left;
-    transition: transform 1s ease, box-shadow 1s ease;
-    padding: 30px;
-    box-sizing: border-box;
-    color: white;
-    backface-visibility: hidden;
+.page{
+width:100%;
+height:100%;
+position:absolute;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(25px);
+border-radius:20px;
+border:1px solid rgba(255,255,255,0.3);
+box-shadow:0 20px 60px rgba(0,0,0,0.9);
+transform-origin:left;
+transition:transform 1s ease;
+padding:30px;
+box-sizing:border-box;
+color:white;
+backface-visibility:hidden;
 }
 
-.page::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
-    background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
-    opacity: 0;
-    transition: opacity 1s;
+.page.flipped{
+transform:rotateY(-180deg);
 }
 
-.page.flipped {
-    transform: rotateY(-180deg);
+.page:nth-child(1){z-index:4;}
+.page:nth-child(2){z-index:3;}
+.page:nth-child(3){z-index:2;}
+.page:nth-child(4){z-index:1;}
+
+h2{
+color:#ffd1dc;
+text-shadow:0 0 15px #ff4e8b;
 }
 
-.page.flipped::after {
-    opacity: 1;
+button{
+position:absolute;
+bottom:20px;
+padding:8px 18px;
+border:none;
+border-radius:25px;
+background:#ff4e8b;
+color:white;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
 }
 
-.page:nth-child(1){ z-index:4; }
-.page:nth-child(2){ z-index:3; }
-.page:nth-child(3){ z-index:2; }
-.page:nth-child(4){ z-index:1; }
-
-h2 {
-    color: #ffd1dc;
-    text-shadow: 0 0 10px #ff4e8b;
+button:hover{
+background:#ff2f75;
+box-shadow:0 0 15px #ff4e8b;
 }
 
-p {
-    font-size: 15px;
-    line-height: 1.6;
+.next{right:20px;}
+.prev{left:20px;}
+
+/* Final Proposal Screen */
+.final{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.95);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+color:white;
+opacity:0;
+pointer-events:none;
+transition:1s;
+z-index:5;
 }
 
-/* Buttons */
-button {
-    position: absolute;
-    bottom: 20px;
-    padding: 8px 18px;
-    border: none;
-    border-radius: 20px;
-    background: #ff4e8b;
-    color: white;
-    cursor: pointer;
-    font-size: 12px;
-    transition: 0.3s;
+.final.show{
+opacity:1;
+pointer-events:auto;
 }
 
-button:hover {
-    background: #ff2f75;
-    box-shadow: 0 0 10px #ff4e8b;
+.proposal-text{
+font-size:32px;
+text-align:center;
+margin-bottom:30px;
+animation:fadeIn 2s forwards;
 }
 
-.next { right: 20px; }
-.prev { left: 20px; }
-
-/* Final screen animation */
-.final-screen {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: white;
-    font-size: 28px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1s;
-    z-index: 5;
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(30px);}
+to{opacity:1;transform:translateY(0);}
 }
 
-.final-screen.show {
-    opacity: 1;
-    pointer-events: auto;
+.choice{
+display:flex;
+gap:20px;
 }
 
-.final-screen span {
-    font-size: 60px;
-    animation: pulse 1.5s infinite;
+.yes{
+background:#00c853;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
+.no{
+background:#d50000;
+position:relative;
+}
+
+/* Confetti */
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+background:red;
+top:-10px;
+animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+to{transform:translateY(100vh) rotate(720deg);}
 }
 </style>
 </head>
 
 <body>
 
-<!-- Background Music -->
 <audio autoplay loop>
-    <source src="music.mp3" type="audio/mpeg">
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Floating Hearts -->
 <script>
-for(let i=0;i<20;i++){
-    let heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="❤";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.animationDuration=4+Math.random()*4+"s";
-    document.body.appendChild(heart);
+/* Sparkles */
+for(let i=0;i<60;i++){
+let s=document.createElement("div");
+s.className="sparkle";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+s.style.animationDuration=1+Math.random()*2+"s";
+document.body.appendChild(s);
 }
 </script>
 
 <div class="book">
 
 <div class="page" id="p1">
-<h2>Page 1 ❤️</h2>
-<p>Since the day I met you,<br>my life changed beautifully.</p>
-<button class="next" onclick="flipNext(1)">Next ➜</button>
+<h2>The Beginning ❤️</h2>
+<p>From the moment I met you,<br>my world became brighter.</p>
+<button class="next" onclick="flip(1)">Next ➜</button>
 </div>
 
 <div class="page" id="p2">
-<h2>Page 2 💕</h2>
-<p>Talking to you is my favorite moment every day.</p>
-<button class="prev" onclick="flipPrev(1)">⬅ Back</button>
-<button class="next" onclick="flipNext(2)">Next ➜</button>
+<h2>Every Moment 💕</h2>
+<p>Every second with you feels magical.</p>
+<button class="prev" onclick="unflip(1)">⬅ Back</button>
+<button class="next" onclick="flip(2)">Next ➜</button>
 </div>
 
 <div class="page" id="p3">
-<h2>Page 3 💌</h2>
-<p>I love you more than words can explain ❤️</p>
-<button class="prev" onclick="flipPrev(2)">⬅ Back</button>
+<h2>My Heart 💌</h2>
+<p>I don’t want a perfect life.<br>I just want you.</p>
+<button class="prev" onclick="unflip(2)">⬅ Back</button>
 <button class="next" onclick="showFinal()">Next ➜</button>
 </div>
 
 <div class="page" id="p4">
 <h2>Forever 💖</h2>
 <p>You are my today and all my tomorrows.</p>
-<button class="prev" onclick="flipPrev(3)">⬅ Back</button>
 </div>
 
 </div>
 
-<div class="final-screen" id="final">
-<span>💍</span>
-Will You Be Mine Forever?
+<div class="final" id="final">
+<div class="proposal-text">
+💍 Will You Be Mine Forever?
+</div>
+<div class="choice">
+<button class="yes" onclick="celebrate()">YES ❤️</button>
+<button class="no" id="noBtn">NO 💔</button>
+</div>
 </div>
 
 <script>
-function flipNext(n){
-    document.getElementById("p"+n).classList.add("flipped");
+function flip(n){
+document.getElementById("p"+n).classList.add("flipped");
 }
-function flipPrev(n){
-    document.getElementById("p"+n).classList.remove("flipped");
+function unflip(n){
+document.getElementById("p"+n).classList.remove("flipped");
 }
 function showFinal(){
-    document.getElementById("p3").classList.add("flipped");
-    document.getElementById("final").classList.add("show");
+document.getElementById("p3").classList.add("flipped");
+document.getElementById("final").classList.add("show");
+}
+
+/* NO button runs away */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*80+"vw";
+noBtn.style.top=Math.random()*80+"vh";
+});
+
+/* Confetti celebration */
+function celebrate(){
+for(let i=0;i<150;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background="hsl("+Math.random()*360+",100%,50%)";
+c.style.animationDuration=2+Math.random()*2+"s";
+document.body.appendChild(c);
+}
+alert("She said YES! ❤️ Forever starts now!");
 }
 </script>
 
