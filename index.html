@@ -3,87 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Valentine's Day ❤️</title>
+<title>U R My Valentine ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-    body {
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     font-family: 'Poppins', sans-serif;
     height: 100vh;
-    background: url("your-image.jpg") no-repeat center center/cover;
+    background: url("background.jpg") no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    position: relative;
     color: white;
-    text-align: center;
 }
 
+/* Dark Overlay */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+}
 
-    .card {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 40px;
-        border-radius: 20px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 0 25px rgba(0,0,0,0.3);
-        width: 350px;
-    }
+/* Glass Card */
+.card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    width: 380px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    animation: fadeIn 2s ease-in-out;
+}
 
-    h1 {
-        font-size: 28px;
-        margin-bottom: 15px;
-    }
+h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
 
-    p {
-        font-size: 16px;
-        line-height: 1.6;
-    }
+p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
 
-    button {
-        margin-top: 20px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 25px;
-        background: white;
-        color: #ff4e8b;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-    }
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff4e8b, #ff6fa5);
+    color: white;
+    transition: 0.3s;
+}
 
-    button:hover {
-        background: #ffe6ec;
-        transform: scale(1.05);
-    }
+button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 15px #ff4e8b;
+}
 
-    .hidden-message {
-        display: none;
-        margin-top: 15px;
-        font-weight: bold;
-        font-size: 18px;
-    }
+.hidden-message {
+    display: none;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    animation: fadeIn 1.5s ease-in-out;
+}
 
-    /* Floating hearts */
-    .heart {
-        position: absolute;
-        bottom: -10px;
-        color: white;
-        animation: float 6s infinite;
-        font-size: 20px;
-        opacity: 0.7;
-    }
+/* Floating Hearts */
+.heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 22px;
+    color: #ffccd9;
+    animation: floatUp linear infinite;
+    opacity: 0.8;
+}
 
-    @keyframes float {
-        0% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 0.7;
-        }
-        100% {
-            transform: translateY(-100vh) rotate(360deg);
-            opacity: 0;
-        }
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
     }
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 
@@ -98,33 +123,33 @@
         and my forever 💖
     </p>
 
-    <button onclick="showMessage()">Open My Heart 💌</button>
+    <button onclick="showLove()">Open My Heart 💌</button>
 
-    <div class="hidden-message" id="loveMessage">
-        I love you more than words can ever express ❤️
+    <div class="hidden-message" id="loveText">
+        I love you more than yesterday,<br>
+        but less than tomorrow ❤️
     </div>
 </div>
 
-<!-- Floating Hearts Script -->
 <script>
-    function showMessage() {
-        document.getElementById("loveMessage").style.display = "block";
-    }
+function showLove() {
+    document.getElementById("loveText").style.display = "block";
+}
 
-    function createHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-        document.body.appendChild(heart);
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
 
-        setTimeout(() => {
-            heart.remove();
-        }, 6000);
-    }
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
 
-    setInterval(createHeart, 400);
+setInterval(createHeart, 400);
 </script>
 
 </body>
