@@ -3,167 +3,299 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Love Story ❤️</title>
+<title>Forever With You</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
 
 <style>
-html, body {
-    margin: 0;
-    height: 100%;
-    font-family: 'Poppins', sans-serif;
+html,body{
+margin:0;
+height:100%;
+font-family:'Poppins',sans-serif;
+overflow:hidden;
+background:url("background.jpg") center/cover no-repeat;
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
+color:white;
 }
 
-body {
-    background: url("background.jpg") center/cover no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
+body::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.45);
+z-index:0;
 }
 
-/* Dark overlay */
-body::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.35);
-    z-index: 0;
+/* Intro Screen */
+.intro{
+position:absolute;
+inset:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+z-index:10;
 }
 
-/* Book container */
-.book {
-    width: 320px;
-    height: 420px;
-    position: relative;
-    perspective: 2000px;
-    z-index: 1;
+.typing{
+border-right:2px solid white;
+white-space:nowrap;
+overflow:hidden;
+animation:blink .7s infinite;
 }
 
-/* Transparent Glass Pages */
-.page {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    background: rgba(255, 255, 255, 0.08); /* lighter glass */
-
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
-
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.3);
-
-    box-shadow: 
-        0 8px 32px rgba(0,0,0,0.6),
-        inset 0 0 20px rgba(255,255,255,0.1);
-
-    transform-origin: left;
-    transition: transform 1s ease;
-    padding: 30px;
-    box-sizing: border-box;
-    color: white;
-
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
+@keyframes blink{
+50%{border-color:transparent;}
 }
 
-/* Page stacking order */
-.page:nth-child(1) { z-index: 4; }
-.page:nth-child(2) { z-index: 3; }
-.page:nth-child(3) { z-index: 2; }
-.page:nth-child(4) { z-index: 1; }
-
-.page h2 {
-    color: #ffd1dc;
-    margin-top: 0;
+/* Countdown */
+.countdown{
+font-size:60px;
+font-weight:bold;
+display:none;
+z-index:9;
 }
 
-.page p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: white;
+/* Book */
+.book{
+width:340px;
+height:440px;
+perspective:2000px;
+position:relative;
+z-index:1;
+display:none;
 }
 
-.page.flipped {
-    transform: rotateY(-180deg);
+.page{
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(25px);
+border-radius:20px;
+border:1px solid rgba(255,255,255,0.3);
+box-shadow:0 20px 40px rgba(0,0,0,0.6),
+inset -10px 0 20px rgba(0,0,0,0.2);
+padding:30px;
+transform-origin:left;
+transition:transform 1s ease;
+backface-visibility:hidden;
 }
 
-/* Buttons */
-button {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 20px;
-    background: #ff4e8b;
-    color: white;
-    cursor: pointer;
-    font-size: 12px;
-    transition: 0.3s;
+.page.flipped{
+transform:rotateY(-180deg);
 }
 
-button:hover {
-    background: #ff2f75;
+h2{
+color:#ff6b9d;
+text-shadow:0 0 20px #ff4e8b;
+}
+
+button{
+padding:8px 15px;
+border:none;
+border-radius:20px;
+background:#ff4e8b;
+color:white;
+cursor:pointer;
+margin-top:20px;
+}
+
+/* Proposal Screen */
+.proposal{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.9);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+opacity:0;
+pointer-events:none;
+transition:opacity 1s ease;
+z-index:20;
+}
+
+.proposal.show{
+opacity:1;
+pointer-events:auto;
+}
+
+.proposal h1{
+font-size:32px;
+color:#ff4e8b;
+animation:glow 1.5s infinite alternate;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 10px #ff4e8b;}
+to{text-shadow:0 0 40px #ff4e8b;}
+}
+
+/* Floating hearts & petals */
+.float{
+position:absolute;
+bottom:-20px;
+animation:up linear infinite;
+}
+@keyframes up{
+to{transform:translateY(-110vh);opacity:0;}
+}
+
+.petal{
+position:absolute;
+top:-20px;
+animation:down linear infinite;
+}
+@keyframes down{
+to{transform:translateY(110vh) rotate(360deg);}
 }
 </style>
 </head>
-
 <body>
 
-<div class="book">
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="page" id="p1">
-        <h2>Page 1 ❤️</h2>
-        <p>
-            Since the day I met you,<br>
-            my life has felt happier.<br><br>
-            You are the most special<br>
-            person in my world.
-        </p>
-        <button onclick="flip('p1')">Next ➜</button>
-    </div>
+<audio id="celebrate">
+<source src="celebrate.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="page" id="p2">
-        <h2>Page 2 💕</h2>
-        <p>
-            Talking to you<br>
-            is my favorite part of the day.<br><br>
-            When you are near me,<br>
-            everything feels better.
-        </p>
-        <button onclick="flip('p2')">Next ➜</button>
-    </div>
+<div class="intro">
+<div class="typing" id="typing"></div>
+</div>
 
-    <div class="page" id="p3">
-        <h2>Page 3 💌</h2>
-        <p>
-            I love you so much ❤️<br><br>
-            I just want to stay with you,<br>
-            today and always.
-        </p>
-        <button onclick="flip('p3')">Next ➜</button>
-    </div>
+<div class="countdown" id="countdown"></div>
 
-    <div class="page" id="p4">
-        <h2>Forever 💖</h2>
-        <p>
-            Happy Valentine's Day ❤️<br><br>
-            Will you always<br>
-            be mine?
-        </p>
-    </div>
+<div class="book" id="book">
+<div class="page" id="p1">
+<h2>My Love</h2>
+<p>You are the best thing that ever happened to me.</p>
+<button onclick="nextPage()">Next</button>
+</div>
 
+<div class="page" id="p2">
+<h2>My Heart</h2>
+<p>I want to walk every path of life with you.</p>
+<button onclick="showProposal()">Open</button>
+</div>
+</div>
+
+<div class="proposal" id="proposal">
+<h1 id="finalText">Will You Be Mine Forever?</h1>
+<div>
+<button onclick="yesAnswer()">YES 💍</button>
+<button id="noBtn">NO 😅</button>
+</div>
 </div>
 
 <script>
-function flip(pageId) {
-    document.getElementById(pageId).classList.add("flipped");
+/* Typing Intro */
+const text="I have something special to ask you...";
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,50);
+}else{
+setTimeout(startCountdown,1000);
 }
+}
+type();
+
+function startCountdown(){
+document.querySelector(".intro").style.display="none";
+const cd=document.getElementById("countdown");
+cd.style.display="block";
+let num=3;
+cd.innerHTML=num;
+let interval=setInterval(()=>{
+num--;
+if(num===0){
+clearInterval(interval);
+cd.style.display="none";
+document.getElementById("book").style.display="block";
+}else{
+cd.innerHTML=num;
+}
+},1000);
+}
+
+/* Page flip */
+let current=0;
+const pages=document.querySelectorAll(".page");
+function nextPage(){
+pages[current].classList.add("flipped");
+current++;
+}
+function showProposal(){
+pages[current].classList.add("flipped");
+setTimeout(()=>{
+document.getElementById("proposal").classList.add("show");
+},1000);
+}
+
+/* No button runs */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*80+"%";
+noBtn.style.top=Math.random()*80+"%";
+});
+
+/* YES explosion */
+function yesAnswer(){
+document.getElementById("celebrate").play();
+for(let i=0;i<100;i++){
+let conf=document.createElement("div");
+conf.style.position="absolute";
+conf.style.left="50%";
+conf.style.top="50%";
+conf.style.width="8px";
+conf.style.height="8px";
+conf.style.background="hsl("+Math.random()*360+",100%,60%)";
+conf.style.borderRadius="50%";
+conf.style.transition="all 1.5s ease-out";
+document.body.appendChild(conf);
+setTimeout(()=>{
+conf.style.left=Math.random()*100+"%";
+conf.style.top=Math.random()*100+"%";
+conf.style.opacity=0;
+},10);
+setTimeout(()=>conf.remove(),1500);
+}
+document.getElementById("finalText").innerHTML="She Said YES! 💖";
+}
+
+/* Floating hearts */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="float";
+h.innerHTML="❤";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(15+Math.random()*20)+"px";
+h.style.animationDuration=(5+Math.random()*3)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),8000);
+},500);
+
+/* Rose rain */
+setInterval(()=>{
+let r=document.createElement("div");
+r.className="petal";
+r.innerHTML="🌹";
+r.style.left=Math.random()*100+"vw";
+r.style.fontSize=(15+Math.random()*20)+"px";
+r.style.animationDuration=(6+Math.random()*4)+"s";
+document.body.appendChild(r);
+setTimeout(()=>r.remove(),10000);
+},700);
 </script>
 
 </body>
